@@ -16,6 +16,7 @@
 		35C93B7B299529CC00EA4B24 /* DoGadgetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C93B7A299529CC00EA4B24 /* DoGadgetTests.swift */; };
 		35C93B85299529CC00EA4B24 /* DoGadgetUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C93B84299529CC00EA4B24 /* DoGadgetUITests.swift */; };
 		35C93B87299529CC00EA4B24 /* DoGadgetUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C93B86299529CC00EA4B24 /* DoGadgetUITestsLaunchTests.swift */; };
+		35C93B95299560FC00EA4B24 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35C93B94299560FC00EA4B24 /* CoreBluetooth.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		35C93B80299529CC00EA4B24 /* DoGadgetUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DoGadgetUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		35C93B84299529CC00EA4B24 /* DoGadgetUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoGadgetUITests.swift; sourceTree = "<group>"; };
 		35C93B86299529CC00EA4B24 /* DoGadgetUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoGadgetUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		35C93B94299560FC00EA4B24 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35C93B95299560FC00EA4B24 /* CoreBluetooth.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +85,7 @@
 				35C93B79299529CC00EA4B24 /* DoGadgetTests */,
 				35C93B83299529CC00EA4B24 /* DoGadgetUITests */,
 				35C93B62299529CB00EA4B24 /* Products */,
+				35C93B93299560FC00EA4B24 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -131,6 +135,14 @@
 				35C93B86299529CC00EA4B24 /* DoGadgetUITestsLaunchTests.swift */,
 			);
 			path = DoGadgetUITests;
+			sourceTree = "<group>";
+		};
+		35C93B93299560FC00EA4B24 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				35C93B94299560FC00EA4B24 /* CoreBluetooth.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -428,11 +440,13 @@
 				DEVELOPMENT_TEAM = 6P3776FN2T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -440,9 +454,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.3dpixelfactory.DoGadget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -457,11 +474,13 @@
 				DEVELOPMENT_TEAM = 6P3776FN2T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -469,9 +488,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.3dpixelfactory.DoGadget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
