@@ -7,7 +7,35 @@
 
 import SwiftUI
 import CoreData
+import CoreBluetooth
 
+class BluetoothViewModel : NSObject, ObservableObject {
+    private var centralManager: CBCentralManager?
+    private var peripherals: [CBPeripheral] = []
+    @Published var peripheralNames: [String] = []
+    
+    override init() {
+        super.init()
+        self.centralManager = CBCentralManager(delegate: self, queue: .main)
+        
+    }
+}
+
+extension BluetoothViewModel: CBCentralManagerDelegate {
+    func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        if central.state == .poweredOn {
+            self.centralManager?.scanForPeripherals(withServices: nil)
+        }
+    }
+    
+    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        if !peripherals.contains(peripheral) {
+            self.peripherals.append(peripheral)
+            self.peripheralNames.append(peripheral.name ?? "unnamed devie")
+        }
+    }
+}
+ 
 struct ContentView: View {
     struct DataListView: View {
         @Environment(\.managedObjectContext) private var viewContext
@@ -52,19 +80,31 @@ struct ContentView: View {
             }
         }
     }
+    
+    struct BTDevicesView: View {
+        @ObservedObject private var bluetoothViewModel = BluetoothViewModel()
         
-    @State private var showingAlert = false
+        var body: some View {
+            NavigationView {
+                List(bluetoothViewModel.peripheralNames, id: \.self) {
+                    peripheral in Text(peripheral)
+                }
+                Text("Select a DoGadget to connect to")
+                //.navigationTitle("Discovered Devices")
+            }
+            
+        }
+    }
+        
     var body: some View {
         NavigationStack {
             Text("")
                 .navigationTitle("DoGadget")
             VStack {
-                Button("Connect") {
-                    showingAlert = true
+                NavigationLink(destination: BTDevicesView()) {
+                        Text("Connect to DoGadget")
                 }
-                .alert("Here goes the BTLE device list", isPresented: $showingAlert){
-                }
-                .padding(10)
+                .padding()
                 NavigationLink(destination: DataListView()) {
                     Text("Data List")
                 }
