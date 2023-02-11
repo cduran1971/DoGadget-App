@@ -17,21 +17,34 @@ class BluetoothViewModel : NSObject, ObservableObject {
     override init() {
         super.init()
         self.centralManager = CBCentralManager(delegate: self, queue: .main)
-        
     }
 }
 
 extension BluetoothViewModel: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        if central.state == .poweredOn {
-            self.centralManager?.scanForPeripherals(withServices: nil)
+        switch central.state {
+            case .poweredOff:
+                print("Is Powered Off.")
+            case .poweredOn:
+                print("Is Powered On.")
+                self.centralManager?.scanForPeripherals(withServices: nil)
+            case .unsupported:
+                print("Is Unsupported.")
+            case .unauthorized:
+                print("Is Unauthorized.")
+            case .unknown:
+                print("Unknown")
+            case .resetting:
+                print("Resetting")
+            @unknown default:
+                print("Error")
         }
     }
     
-    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         if !peripherals.contains(peripheral) {
             self.peripherals.append(peripheral)
-            self.peripheralNames.append(peripheral.name ?? "unnamed devie")
+            self.peripheralNames.append(peripheral.name ?? "unnamed device")
         }
     }
 }
@@ -45,6 +58,26 @@ struct ContentView: View {
         
         private var items: FetchedResults<Item>
         
+        /*init() {
+            for _ in 0..<10 {
+                let newItem = Item(context: viewContext)
+                newItem.timestamp = Date()
+                newItem.lat = 10.05432
+                newItem.long = -2.22345
+                newItem.pull_force = 10.02
+                newItem.pull_threshold = 20.55
+                
+                do {
+                    try viewContext.save()
+                } catch {
+                    // Replace this implementation with code to handle the error appropriately.
+                    // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                    let nsError = error as NSError
+                    fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+                }
+            }
+        }*/
+            
         var body: some View {
             List {
                 ForEach(items) { item in
@@ -65,6 +98,7 @@ struct ContentView: View {
             }
             Text("Select a Date/Time")
         }
+        
         private func deleteItems(offsets: IndexSet){
             withAnimation {
                 offsets.map { items[$0] }.forEach(viewContext.delete)
@@ -79,20 +113,36 @@ struct ContentView: View {
                 }
             }
         }
+        
+        private func addItem() {
+            withAnimation {
+                let newItem = Item(context: viewContext)
+                newItem.timestamp = Date()
+                newItem.lat = 10.05432
+                newItem.long = -2.22345
+                newItem.pull_force = 10.02
+                newItem.pull_threshold = 20.55
+                
+                do {
+                    try viewContext.save()
+                } catch {
+                    // Replace this implementation with code to handle the error appropriately.
+                    // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                    let nsError = error as NSError
+                    fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+                }
+            }
+        }
     }
     
+
     struct BTDevicesView: View {
         @ObservedObject private var bluetoothViewModel = BluetoothViewModel()
-        
         var body: some View {
-            NavigationView {
-                List(bluetoothViewModel.peripheralNames, id: \.self) {
-                    peripheral in Text(peripheral)
-                }
-                Text("Select a DoGadget to connect to")
-                //.navigationTitle("Discovered Devices")
+            List(bluetoothViewModel.peripheralNames, id: \.self) {
+                peripheral in Text(peripheral)
             }
-            
+            Text("Select a DoGadget to connect to")
         }
     }
         

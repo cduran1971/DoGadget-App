@@ -17,6 +17,7 @@
 		35C93B85299529CC00EA4B24 /* DoGadgetUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C93B84299529CC00EA4B24 /* DoGadgetUITests.swift */; };
 		35C93B87299529CC00EA4B24 /* DoGadgetUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C93B86299529CC00EA4B24 /* DoGadgetUITestsLaunchTests.swift */; };
 		35C93B95299560FC00EA4B24 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35C93B94299560FC00EA4B24 /* CoreBluetooth.framework */; };
+		35D6CF682997E8590039BC90 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35D6CF672997E8590039BC90 /* CoreData.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		35C93B84299529CC00EA4B24 /* DoGadgetUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoGadgetUITests.swift; sourceTree = "<group>"; };
 		35C93B86299529CC00EA4B24 /* DoGadgetUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoGadgetUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		35C93B94299560FC00EA4B24 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		35D6CF672997E8590039BC90 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				35C93B95299560FC00EA4B24 /* CoreBluetooth.framework in Frameworks */,
+				35D6CF682997E8590039BC90 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +143,7 @@
 		35C93B93299560FC00EA4B24 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				35D6CF672997E8590039BC90 /* CoreData.framework */,
 				35C93B94299560FC00EA4B24 /* CoreBluetooth.framework */,
 			);
 			name = Frameworks;
@@ -441,6 +445,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "DoGadget needs to use Bluetooth";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "DoGadget will need Bluetooth to connect to the DoGadget device for setting force threshold and logging walk data.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -475,6 +481,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "DoGadget needs to use Bluetooth";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "DoGadget will need Bluetooth to connect to the DoGadget device for setting force threshold and logging walk data.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
