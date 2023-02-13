@@ -9,10 +9,16 @@ import SwiftUI
 import CoreData
 import CoreBluetooth
 
+struct Device: Identifiable/*, Hashable*/ {
+    var name: String
+    var signal_rssi: Int
+    let id = UUID()
+}
+
 class BluetoothViewModel : NSObject, ObservableObject {
     private var centralManager: CBCentralManager?
     private var peripherals: [CBPeripheral] = []
-    @Published var peripheralNames: [String] = []
+    @Published var peripheralList: [Device] = []
     
     override init() {
         super.init()
@@ -43,8 +49,9 @@ extension BluetoothViewModel: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         if !peripherals.contains(peripheral) {
+            let aPeripheral = Device(name:(peripheral.name ?? "unnamed device"), signal_rssi: (peripheral.rssi ?? 0).intValue)
             self.peripherals.append(peripheral)
-            self.peripheralNames.append(peripheral.name ?? "unnamed device")
+            self.peripheralList.append(aPeripheral)
         }
     }
 }
@@ -57,26 +64,6 @@ struct ContentView: View {
             animation: .default)
         
         private var items: FetchedResults<Item>
-        
-        /*init() {
-            for _ in 0..<10 {
-                let newItem = Item(context: viewContext)
-                newItem.timestamp = Date()
-                newItem.lat = 10.05432
-                newItem.long = -2.22345
-                newItem.pull_force = 10.02
-                newItem.pull_threshold = 20.55
-                
-                do {
-                    try viewContext.save()
-                } catch {
-                    // Replace this implementation with code to handle the error appropriately.
-                    // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                    let nsError = error as NSError
-                    fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-                }
-            }
-        }*/
             
         var body: some View {
             List {
@@ -135,17 +122,22 @@ struct ContentView: View {
         }
     }
     
-
     struct BTDevicesView: View {
         @ObservedObject private var bluetoothViewModel = BluetoothViewModel()
         var body: some View {
-            List(bluetoothViewModel.peripheralNames, id: \.self) {
-                peripheral in Text(peripheral)
+            List(bluetoothViewModel.peripheralList) {
+                peripheral in
+                NavigationLink {
+                    Text(peripheral.name)
+                    Text(String(format: "RSSI: %d db", peripheral.signal_rssi))
+                } label: {
+                    Text(peripheral.name)
+                }
             }
             Text("Select a DoGadget to connect to")
         }
     }
-        
+    
     var body: some View {
         NavigationStack {
             Text("")
